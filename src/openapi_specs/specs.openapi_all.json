@@ -13875,48 +13875,41 @@
         ]
        },
        "body": {
-        "oneOf": [
-         {
-          "type": "object",
-          "properties": {
-           "message_type": {
-            "type": "string",
-            "enum": [
-             "vcard"
-            ]
-           },
-           "vcard": {
-            "$ref": "#/components/schemas/message_vcard"
-           }
-          },
-          "required": [
-           "message_type",
-           "vcard"
-          ]
+        "type": "object",
+        "properties": {
+         "message_type": {
+          "$ref": "#/components/schemas/message_type"
          },
-         {
-          "type": "object",
-          "properties": {
-           "vcard": {
-            "$ref": "#/components/schemas/message_vcard"
-           },
-           "message_type": {
-            "type": "string",
-            "enum": [
-             "text",
-             "image",
-             "video",
-             "audio",
-             "file",
-             "custom",
-             "template"
-            ]
-           }
-          },
-          "required": [
-           "message_type"
-          ]
+         "text": {
+          "$ref": "#/components/schemas/message_text"
+         },
+         "image": {
+          "$ref": "#/components/schemas/message_image"
+         },
+         "audio": {
+          "$ref": "#/components/schemas/message_audio"
+         },
+         "video": {
+          "$ref": "#/components/schemas/message_video"
+         },
+         "file": {
+          "$ref": "#/components/schemas/message_file"
+         },
+         "template": {
+          "$ref": "#/components/schemas/message_template"
+         },
+         "whatsapp": {
+          "$ref": "#/components/schemas/message_whatsapp"
+         },
+         "custom": {
+          "$ref": "#/components/schemas/message_custom"
+         },
+         "vcard": {
+          "$ref": "#/components/schemas/message_vcard"
          }
+        },
+        "required": [
+         "message_type"
         ]
        }
       },
@@ -19394,48 +19387,41 @@
           "body": {
            "oneOf": [
             {
-             "oneOf": [
-              {
-               "type": "object",
-               "properties": {
-                "message_type": {
-                 "type": "string",
-                 "enum": [
-                  "vcard"
-                 ]
-                },
-                "vcard": {
-                 "$ref": "#/components/schemas/message_vcard"
-                }
-               },
-               "required": [
-                "message_type",
-                "vcard"
-               ]
+             "type": "object",
+             "properties": {
+              "message_type": {
+               "$ref": "#/components/schemas/message_type"
               },
-              {
-               "type": "object",
-               "properties": {
-                "vcard": {
-                 "$ref": "#/components/schemas/message_vcard"
-                },
-                "message_type": {
-                 "type": "string",
-                 "enum": [
-                  "text",
-                  "image",
-                  "video",
-                  "audio",
-                  "file",
-                  "custom",
-                  "template"
-                 ]
-                }
-               },
-               "required": [
-                "message_type"
-               ]
+              "text": {
+               "$ref": "#/components/schemas/message_text"
+              },
+              "image": {
+               "$ref": "#/components/schemas/message_image"
+              },
+              "audio": {
+               "$ref": "#/components/schemas/message_audio"
+              },
+              "video": {
+               "$ref": "#/components/schemas/message_video"
+              },
+              "file": {
+               "$ref": "#/components/schemas/message_file"
+              },
+              "template": {
+               "$ref": "#/components/schemas/message_template"
+              },
+              "whatsapp": {
+               "$ref": "#/components/schemas/message_whatsapp"
+              },
+              "custom": {
+               "$ref": "#/components/schemas/message_custom"
+              },
+              "vcard": {
+               "$ref": "#/components/schemas/message_vcard"
               }
+             },
+             "required": [
+              "message_type"
              ]
             },
             {
@@ -24180,48 +24166,41 @@
           "body": {
            "oneOf": [
             {
-             "oneOf": [
-              {
-               "type": "object",
-               "properties": {
-                "message_type": {
-                 "type": "string",
-                 "enum": [
-                  "vcard"
-                 ]
-                },
-                "vcard": {
-                 "$ref": "#/components/schemas/message_vcard"
-                }
-               },
-               "required": [
-                "message_type",
-                "vcard"
-               ]
+             "type": "object",
+             "properties": {
+              "message_type": {
+               "$ref": "#/components/schemas/message_type"
               },
-              {
-               "type": "object",
-               "properties": {
-                "vcard": {
-                 "$ref": "#/components/schemas/message_vcard"
-                },
-                "message_type": {
-                 "type": "string",
-                 "enum": [
-                  "text",
-                  "image",
-                  "video",
-                  "audio",
-                  "file",
-                  "custom",
-                  "template"
-                 ]
-                }
-               },
-               "required": [
-                "message_type"
-               ]
+              "text": {
+               "$ref": "#/components/schemas/message_text"
+              },
+              "image": {
+               "$ref": "#/components/schemas/message_image"
+              },
+              "audio": {
+               "$ref": "#/components/schemas/message_audio"
+              },
+              "video": {
+               "$ref": "#/components/schemas/message_video"
+              },
+              "file": {
+               "$ref": "#/components/schemas/message_file"
+              },
+              "template": {
+               "$ref": "#/components/schemas/message_template"
+              },
+              "whatsapp": {
+               "$ref": "#/components/schemas/message_whatsapp"
+              },
+              "custom": {
+               "$ref": "#/components/schemas/message_custom"
+              },
+              "vcard": {
+               "$ref": "#/components/schemas/message_vcard"
               }
+             },
+             "required": [
+              "message_type"
              ]
             },
             {
@@ -29092,48 +29071,41 @@
           "body": {
            "oneOf": [
             {
-             "oneOf": [
-              {
-               "type": "object",
-               "properties": {
-                "message_type": {
-                 "type": "string",
-                 "enum": [
-                  "vcard"
-                 ]
-                },
-                "vcard": {
-                 "$ref": "#/components/schemas/message_vcard"
-                }
-               },
-               "required": [
-                "message_type",
-                "vcard"
-               ]
+             "type": "object",
+             "properties": {
+              "message_type": {
+               "$ref": "#/components/schemas/message_type"
               },
-              {
-               "type": "object",
-               "properties": {
-                "vcard": {
-                 "$ref": "#/components/schemas/message_vcard"
-                },
-                "message_type": {
-                 "type": "string",
-                 "enum": [
-                  "text",
-                  "image",
-                  "video",
-                  "audio",
-                  "file",
-                  "custom",
-                  "template"
-                 ]
-                }
-               },
-               "required": [
-                "message_type"
-               ]
+              "text": {
+               "$ref": "#/components/schemas/message_text"
+              },
+              "image": {
+               "$ref": "#/components/schemas/message_image"
+              },
+              "audio": {
+               "$ref": "#/components/schemas/message_audio"
+              },
+              "video": {
+               "$ref": "#/components/schemas/message_video"
+              },
+              "file": {
+               "$ref": "#/components/schemas/message_file"
+              },
+              "template": {
+               "$ref": "#/components/schemas/message_template"
+              },
+              "whatsapp": {
+               "$ref": "#/components/schemas/message_whatsapp"
+              },
+              "custom": {
+               "$ref": "#/components/schemas/message_custom"
+              },
+              "vcard": {
+               "$ref": "#/components/schemas/message_vcard"
               }
+             },
+             "required": [
+              "message_type"
              ]
             },
             {
@@ -33966,48 +33938,41 @@
            "body": {
             "oneOf": [
              {
-              "oneOf": [
-               {
-                "type": "object",
-                "properties": {
-                 "message_type": {
-                  "type": "string",
-                  "enum": [
-                   "vcard"
-                  ]
-                 },
-                 "vcard": {
-                  "$ref": "#/components/schemas/message_vcard"
-                 }
-                },
-                "required": [
-                 "message_type",
-                 "vcard"
-                ]
+              "type": "object",
+              "properties": {
+               "message_type": {
+                "$ref": "#/components/schemas/message_type"
                },
-               {
-                "type": "object",
-                "properties": {
-                 "vcard": {
-                  "$ref": "#/components/schemas/message_vcard"
-                 },
-                 "message_type": {
-                  "type": "string",
-                  "enum": [
-                   "text",
-                   "image",
-                   "video",
-                   "audio",
-                   "file",
-                   "custom",
-                   "template"
-                  ]
-                 }
-                },
-                "required": [
-                 "message_type"
-                ]
+               "text": {
+                "$ref": "#/components/schemas/message_text"
+               },
+               "image": {
+                "$ref": "#/components/schemas/message_image"
+               },
+               "audio": {
+                "$ref": "#/components/schemas/message_audio"
+               },
+               "video": {
+                "$ref": "#/components/schemas/message_video"
+               },
+               "file": {
+                "$ref": "#/components/schemas/message_file"
+               },
+               "template": {
+                "$ref": "#/components/schemas/message_template"
+               },
+               "whatsapp": {
+                "$ref": "#/components/schemas/message_whatsapp"
+               },
+               "custom": {
+                "$ref": "#/components/schemas/message_custom"
+               },
+               "vcard": {
+                "$ref": "#/components/schemas/message_vcard"
                }
+              },
+              "required": [
+               "message_type"
               ]
              },
              {
@@ -39995,48 +39960,41 @@
                  "body": {
                   "oneOf": [
                    {
-                    "oneOf": [
-                     {
-                      "type": "object",
-                      "properties": {
-                       "message_type": {
-                        "type": "string",
-                        "enum": [
-                         "vcard"
-                        ]
-                       },
-                       "vcard": {
-                        "$ref": "#/components/schemas/message_vcard"
-                       }
-                      },
-                      "required": [
-                       "message_type",
-                       "vcard"
-                      ]
+                    "type": "object",
+                    "properties": {
+                     "message_type": {
+                      "$ref": "#/components/schemas/message_type"
                      },
-                     {
-                      "type": "object",
-                      "properties": {
-                       "vcard": {
-                        "$ref": "#/components/schemas/message_vcard"
-                       },
-                       "message_type": {
-                        "type": "string",
-                        "enum": [
-                         "text",
-                         "image",
-                         "video",
-                         "audio",
-                         "file",
-                         "custom",
-                         "template"
-                        ]
-                       }
-                      },
-                      "required": [
-                       "message_type"
-                      ]
+                     "text": {
+                      "$ref": "#/components/schemas/message_text"
+                     },
+                     "image": {
+                      "$ref": "#/components/schemas/message_image"
+                     },
+                     "audio": {
+                      "$ref": "#/components/schemas/message_audio"
+                     },
+                     "video": {
+                      "$ref": "#/components/schemas/message_video"
+                     },
+                     "file": {
+                      "$ref": "#/components/schemas/message_file"
+                     },
+                     "template": {
+                      "$ref": "#/components/schemas/message_template"
+                     },
+                     "whatsapp": {
+                      "$ref": "#/components/schemas/message_whatsapp"
+                     },
+                     "custom": {
+                      "$ref": "#/components/schemas/message_custom"
+                     },
+                     "vcard": {
+                      "$ref": "#/components/schemas/message_vcard"
                      }
+                    },
+                    "required": [
+                     "message_type"
                     ]
                    },
                    {
@@ -45071,48 +45029,41 @@
                "body": {
                 "oneOf": [
                  {
-                  "oneOf": [
-                   {
-                    "type": "object",
-                    "properties": {
-                     "message_type": {
-                      "type": "string",
-                      "enum": [
-                       "vcard"
-                      ]
-                     },
-                     "vcard": {
-                      "$ref": "#/components/schemas/message_vcard"
-                     }
-                    },
-                    "required": [
-                     "message_type",
-                     "vcard"
-                    ]
+                  "type": "object",
+                  "properties": {
+                   "message_type": {
+                    "$ref": "#/components/schemas/message_type"
                    },
-                   {
-                    "type": "object",
-                    "properties": {
-                     "vcard": {
-                      "$ref": "#/components/schemas/message_vcard"
-                     },
-                     "message_type": {
-                      "type": "string",
-                      "enum": [
-                       "text",
-                       "image",
-                       "video",
-                       "audio",
-                       "file",
-                       "custom",
-                       "template"
-                      ]
-                     }
-                    },
-                    "required": [
-                     "message_type"
-                    ]
+                   "text": {
+                    "$ref": "#/components/schemas/message_text"
+                   },
+                   "image": {
+                    "$ref": "#/components/schemas/message_image"
+                   },
+                   "audio": {
+                    "$ref": "#/components/schemas/message_audio"
+                   },
+                   "video": {
+                    "$ref": "#/components/schemas/message_video"
+                   },
+                   "file": {
+                    "$ref": "#/components/schemas/message_file"
+                   },
+                   "template": {
+                    "$ref": "#/components/schemas/message_template"
+                   },
+                   "whatsapp": {
+                    "$ref": "#/components/schemas/message_whatsapp"
+                   },
+                   "custom": {
+                    "$ref": "#/components/schemas/message_custom"
+                   },
+                   "vcard": {
+                    "$ref": "#/components/schemas/message_vcard"
                    }
+                  },
+                  "required": [
+                   "message_type"
                   ]
                  },
                  {
@@ -46967,48 +46918,41 @@
            "$ref": "#/components/schemas/nullable_member_id"
           },
           "body": {
-           "oneOf": [
-            {
-             "type": "object",
-             "properties": {
-              "message_type": {
-               "type": "string",
-               "enum": [
-                "vcard"
-               ]
-              },
-              "vcard": {
-               "$ref": "#/components/schemas/message_vcard"
-              }
-             },
-             "required": [
-              "message_type",
-              "vcard"
-             ]
+           "type": "object",
+           "properties": {
+            "message_type": {
+             "$ref": "#/components/schemas/message_type"
             },
-            {
-             "type": "object",
-             "properties": {
-              "vcard": {
-               "$ref": "#/components/schemas/message_vcard"
-              },
-              "message_type": {
-               "type": "string",
-               "enum": [
-                "text",
-                "image",
-                "video",
-                "audio",
-                "file",
-                "custom",
-                "template"
-               ]
-              }
-             },
-             "required": [
-              "message_type"
-             ]
+            "text": {
+             "$ref": "#/components/schemas/message_text"
+            },
+            "image": {
+             "$ref": "#/components/schemas/message_image"
+            },
+            "audio": {
+             "$ref": "#/components/schemas/message_audio"
+            },
+            "video": {
+             "$ref": "#/components/schemas/message_video"
+            },
+            "file": {
+             "$ref": "#/components/schemas/message_file"
+            },
+            "template": {
+             "$ref": "#/components/schemas/message_template"
+            },
+            "whatsapp": {
+             "$ref": "#/components/schemas/message_whatsapp"
+            },
+            "custom": {
+             "$ref": "#/components/schemas/message_custom"
+            },
+            "vcard": {
+             "$ref": "#/components/schemas/message_vcard"
             }
+           },
+           "required": [
+            "message_type"
            ]
           }
          },
