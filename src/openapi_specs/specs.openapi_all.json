@@ -1287,6 +1287,126 @@
     ]
    }
   },
+  "/beta/users/{user_id}/sessions": {
+   "get": {
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/user_id"
+     },
+     {
+      "$ref": "#/components/parameters/page_size"
+     },
+     {
+      "$ref": "#/components/parameters/order"
+     },
+     {
+      "$ref": "#/components/parameters/cursor"
+     }
+    ],
+    "responses": {
+     "200": {
+      "$ref": "#/components/responses/user_session_list"
+     },
+     "400": {
+      "$ref": "#/components/responses/error"
+     },
+     "401": {
+      "$ref": "#/components/responses/error"
+     },
+     "403": {
+      "$ref": "#/components/responses/error"
+     },
+     "404": {
+      "$ref": "#/components/responses/error"
+     },
+     "405": {
+      "$ref": "#/components/responses/error"
+     },
+     "406": {
+      "$ref": "#/components/responses/error"
+     },
+     "409": {
+      "$ref": "#/components/responses/error"
+     },
+     "415": {
+      "$ref": "#/components/responses/error"
+     },
+     "422": {
+      "$ref": "#/components/responses/error"
+     },
+     "429": {
+      "$ref": "#/components/responses/error"
+     },
+     "500": {
+      "$ref": "#/components/responses/error"
+     }
+    },
+    "tags": [
+     "users"
+    ],
+    "summary": "Get sessions"
+   }
+  },
+  "/beta2/users/{user_id}/sessions": {
+   "get": {
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/user_id"
+     },
+     {
+      "$ref": "#/components/parameters/page_size"
+     },
+     {
+      "$ref": "#/components/parameters/order"
+     },
+     {
+      "$ref": "#/components/parameters/cursor"
+     }
+    ],
+    "responses": {
+     "200": {
+      "$ref": "#/components/responses/user_session_list"
+     },
+     "400": {
+      "$ref": "#/components/responses/error"
+     },
+     "401": {
+      "$ref": "#/components/responses/error"
+     },
+     "403": {
+      "$ref": "#/components/responses/error"
+     },
+     "404": {
+      "$ref": "#/components/responses/error"
+     },
+     "405": {
+      "$ref": "#/components/responses/error"
+     },
+     "406": {
+      "$ref": "#/components/responses/error"
+     },
+     "409": {
+      "$ref": "#/components/responses/error"
+     },
+     "415": {
+      "$ref": "#/components/responses/error"
+     },
+     "422": {
+      "$ref": "#/components/responses/error"
+     },
+     "429": {
+      "$ref": "#/components/responses/error"
+     },
+     "500": {
+      "$ref": "#/components/responses/error"
+     }
+    },
+    "tags": [
+     "users"
+    ],
+    "summary": "Get sessions"
+   }
+  },
   "/beta/conversations": {
    "post": {
     "summary": "Create a conversation",
@@ -2297,13 +2417,16 @@
           "$ref": "#/components/schemas/member_id"
          },
          "channel": {
-          "$ref": "#/components/schemas/channel"
+          "$ref": "#/components/schemas/member_channel"
          },
          "knocking_id": {
           "type": "string",
           "nullable": true
          },
          "member_id_inviting": {
+          "$ref": "#/components/schemas/member_id"
+         },
+         "from": {
           "$ref": "#/components/schemas/member_id"
          }
         },
@@ -2468,13 +2591,16 @@
           "$ref": "#/components/schemas/member_id"
          },
          "channel": {
-          "$ref": "#/components/schemas/channel"
+          "$ref": "#/components/schemas/member_channel"
          },
          "knocking_id": {
           "type": "string",
           "nullable": true
          },
          "member_id_inviting": {
+          "$ref": "#/components/schemas/member_id"
+         },
+         "from": {
           "$ref": "#/components/schemas/member_id"
          }
         },
@@ -2805,13 +2931,16 @@
         "type": "object",
         "properties": {
          "channel": {
-          "$ref": "#/components/schemas/channel"
+          "$ref": "#/components/schemas/member_channel"
          },
          "action": {
           "type": "string",
           "enum": [
            "join"
           ]
+         },
+         "from": {
+          "$ref": "#/components/schemas/member_id"
          }
         },
         "required": [
@@ -2842,6 +2971,9 @@
      },
      {
       "$ref": "#/components/parameters/reason_text"
+     },
+     {
+      "$ref": "#/components/parameters/from_member"
      }
     ],
     "responses": {
@@ -3027,13 +3159,16 @@
         "type": "object",
         "properties": {
          "channel": {
-          "$ref": "#/components/schemas/channel"
+          "$ref": "#/components/schemas/member_channel"
          },
          "action": {
           "type": "string",
           "enum": [
            "join"
           ]
+         },
+         "from": {
+          "$ref": "#/components/schemas/member_id"
          }
         },
         "required": [
@@ -3064,6 +3199,9 @@
      },
      {
       "$ref": "#/components/parameters/reason_text"
+     },
+     {
+      "$ref": "#/components/parameters/from_member"
      }
     ],
     "responses": {
@@ -3159,6 +3297,9 @@
         "properties": {
          "channel": {
           "$ref": "#/components/schemas/channel"
+         },
+         "properties": {
+          "$ref": "#/components/schemas/properties_knocking"
          }
         },
         "required": [
@@ -3223,6 +3364,9 @@
         "properties": {
          "channel": {
           "$ref": "#/components/schemas/channel"
+         },
+         "properties": {
+          "$ref": "#/components/schemas/properties_knocking"
          }
         },
         "required": [
@@ -6450,7 +6594,7 @@
     ],
     "responses": {
      "200": {
-      "$ref": "#/components/responses/rtcIdLite"
+      "$ref": "#/components/responses/rtcLite"
      },
      "400": {
       "$ref": "#/components/responses/error"
@@ -7177,6 +7321,14 @@
      }
     }
    },
+   "properties_knocking": {
+    "type": "object",
+    "properties": {
+     "custom_data": {
+      "type": "object"
+     }
+    }
+   },
    "context": {
     "type": "string",
     "enum": [
@@ -7260,7 +7412,7 @@
       }
      },
      "channel": {
-      "$ref": "#/components/schemas/channel"
+      "$ref": "#/components/schemas/member_channel"
      }
     },
     "required": [
@@ -7311,7 +7463,7 @@
       "$ref": "#/components/schemas/member_media"
      },
      "channel": {
-      "$ref": "#/components/schemas/channel_v03"
+      "$ref": "#/components/schemas/member_channel_v03"
      }
     },
     "required": [
@@ -7320,6 +7472,9 @@
      "_links",
      "channel"
     ]
+   },
+   "user_name": {
+    "type": "string"
    },
    "conversation_member": {
     "type": "object",
@@ -7370,9 +7525,6 @@
      {
       "type": "object",
       "properties": {
-       "to": {
-        "$ref": "#/components/schemas/channel_endpoint"
-       },
        "id": {
         "$ref": "#/components/schemas/leg_id"
        },
@@ -7381,9 +7533,6 @@
         "enum": [
          "websocket"
         ]
-       },
-       "from": {
-        "$ref": "#/components/schemas/channel_endpoint"
        },
        "headers": {
         "$ref": "#/components/schemas/headers"
@@ -7441,14 +7590,8 @@
      {
       "type": "object",
       "properties": {
-       "to": {
-        "$ref": "#/components/schemas/channel_endpoint"
-       },
        "id": {
         "$ref": "#/components/schemas/leg_id"
-       },
-       "from": {
-        "$ref": "#/components/schemas/channel_endpoint"
        },
        "headers": {
         "$ref": "#/components/schemas/headers"
@@ -7516,9 +7659,6 @@
      {
       "type": "object",
       "properties": {
-       "to": {
-        "$ref": "#/components/schemas/channel_endpoint_v03"
-       },
        "id": {
         "$ref": "#/components/schemas/leg_id_v03"
        },
@@ -7527,9 +7667,6 @@
         "enum": [
          "websocket"
         ]
-       },
-       "from": {
-        "$ref": "#/components/schemas/channel_endpoint_v03"
        },
        "headers": {
         "$ref": "#/components/schemas/headers"
@@ -7572,14 +7709,8 @@
      {
       "type": "object",
       "properties": {
-       "to": {
-        "$ref": "#/components/schemas/channel_endpoint_v03"
-       },
        "id": {
         "$ref": "#/components/schemas/leg_id_v03"
-       },
-       "from": {
-        "$ref": "#/components/schemas/channel_endpoint_v03"
        },
        "headers": {
         "$ref": "#/components/schemas/headers"
@@ -7618,6 +7749,254 @@
          "phone",
          "sip",
          "vbc"
+        ]
+       }
+      },
+      "required": [
+       "type"
+      ]
+     }
+    ]
+   },
+   "member_channel": {
+    "oneOf": [
+     {
+      "type": "object",
+      "properties": {
+       "id": {
+        "$ref": "#/components/schemas/leg_id"
+       },
+       "headers": {
+        "$ref": "#/components/schemas/headers"
+       },
+       "cpa": {
+        "type": "boolean"
+       },
+       "preanswer": {
+        "type": "boolean"
+       },
+       "ring_timeout": {
+        "type": "number",
+        "format": "float"
+       },
+       "can_hear": {
+        "$ref": "#/components/schemas/leg_list"
+       },
+       "can_speak": {
+        "$ref": "#/components/schemas/leg_list"
+       },
+       "cpa_time": {
+        "type": "number",
+        "format": "float"
+       },
+       "max_length": {
+        "type": "number",
+        "format": "float"
+       },
+       "knocking_id": {
+        "$ref": "#/components/schemas/knocking_id"
+       },
+       "legs": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/legs"
+        }
+       },
+       "leg_ids": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/leg_id"
+        }
+       },
+       "leg_settings": {
+        "type": "object"
+       },
+       "type": {
+        "type": "string",
+        "enum": [
+         "websocket"
+        ]
+       },
+       "content-type": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "type"
+      ]
+     },
+     {
+      "type": "object",
+      "properties": {
+       "id": {
+        "$ref": "#/components/schemas/leg_id"
+       },
+       "headers": {
+        "$ref": "#/components/schemas/headers"
+       },
+       "cpa": {
+        "type": "boolean"
+       },
+       "preanswer": {
+        "type": "boolean"
+       },
+       "ring_timeout": {
+        "type": "number",
+        "format": "float"
+       },
+       "can_hear": {
+        "$ref": "#/components/schemas/leg_list"
+       },
+       "can_speak": {
+        "$ref": "#/components/schemas/leg_list"
+       },
+       "cpa_time": {
+        "type": "number",
+        "format": "float"
+       },
+       "max_length": {
+        "type": "number",
+        "format": "float"
+       },
+       "knocking_id": {
+        "$ref": "#/components/schemas/knocking_id"
+       },
+       "legs": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/legs"
+        }
+       },
+       "leg_ids": {
+        "type": "array",
+        "items": {
+         "$ref": "#/components/schemas/leg_id"
+        }
+       },
+       "leg_settings": {
+        "type": "object"
+       },
+       "type": {
+        "type": "string",
+        "enum": [
+         "app",
+         "phone",
+         "sip",
+         "vbc",
+         "sms",
+         "mms",
+         "whatsapp",
+         "viber",
+         "messenger"
+        ]
+       }
+      },
+      "required": [
+       "type"
+      ]
+     }
+    ]
+   },
+   "member_channel_v03": {
+    "oneOf": [
+     {
+      "type": "object",
+      "properties": {
+       "id": {
+        "$ref": "#/components/schemas/leg_id_v03"
+       },
+       "headers": {
+        "$ref": "#/components/schemas/headers"
+       },
+       "cpa": {
+        "type": "boolean"
+       },
+       "preanswer": {
+        "type": "boolean"
+       },
+       "ring_timeout": {
+        "type": "number",
+        "format": "float"
+       },
+       "can_hear": {
+        "$ref": "#/components/schemas/leg_list_v03"
+       },
+       "can_speak": {
+        "$ref": "#/components/schemas/leg_list_v03"
+       },
+       "cpa_time": {
+        "type": "number",
+        "format": "float"
+       },
+       "max_length": {
+        "type": "number",
+        "format": "float"
+       },
+       "knocking_id": {
+        "$ref": "#/components/schemas/knocking_id_v03"
+       },
+       "type": {
+        "type": "string",
+        "enum": [
+         "websocket"
+        ]
+       },
+       "content-type": {
+        "$ref": "#/components/schemas/string_200"
+       }
+      },
+      "required": [
+       "type"
+      ]
+     },
+     {
+      "type": "object",
+      "properties": {
+       "id": {
+        "$ref": "#/components/schemas/leg_id_v03"
+       },
+       "headers": {
+        "$ref": "#/components/schemas/headers"
+       },
+       "cpa": {
+        "type": "boolean"
+       },
+       "preanswer": {
+        "type": "boolean"
+       },
+       "ring_timeout": {
+        "type": "number",
+        "format": "float"
+       },
+       "can_hear": {
+        "$ref": "#/components/schemas/leg_list_v03"
+       },
+       "can_speak": {
+        "$ref": "#/components/schemas/leg_list_v03"
+       },
+       "cpa_time": {
+        "type": "number",
+        "format": "float"
+       },
+       "max_length": {
+        "type": "number",
+        "format": "float"
+       },
+       "knocking_id": {
+        "$ref": "#/components/schemas/knocking_id_v03"
+       },
+       "type": {
+        "type": "string",
+        "enum": [
+         "app",
+         "phone",
+         "sip",
+         "vbc",
+         "sms",
+         "mms",
+         "whatsapp",
+         "viber",
+         "messenger"
         ]
        }
       },
@@ -8174,6 +8553,21 @@
      "vbc"
     ]
    },
+   "member_channel_type": {
+    "type": "string",
+    "enum": [
+     "app",
+     "phone",
+     "sip",
+     "websocket",
+     "vbc",
+     "sms",
+     "mms",
+     "whatsapp",
+     "viber",
+     "messenger"
+    ]
+   },
    "leg": {
     "type": "object",
     "properties": {
@@ -8572,6 +8966,40 @@
      "type": "object"
     }
    },
+   "messages_channel_number": {
+    "type": "string"
+   },
+   "messages_channel_id": {
+    "type": "string"
+   },
+   "user_channel_id": {
+    "type": "array",
+    "items": {
+     "type": "object",
+     "properties": {
+      "id": {
+       "$ref": "#/components/schemas/messages_channel_id"
+      }
+     },
+     "required": [
+      "id"
+     ]
+    }
+   },
+   "user_channel_number": {
+    "type": "array",
+    "items": {
+     "type": "object",
+     "properties": {
+      "number": {
+       "$ref": "#/components/schemas/messages_channel_number"
+      }
+     },
+     "required": [
+      "number"
+     ]
+    }
+   },
    "headers": {
     "type": "object"
    },
@@ -8600,6 +9028,29 @@
      },
      "headers": {
       "$ref": "#/components/schemas/headers"
+     }
+    },
+    "required": [
+     "type"
+    ]
+   },
+   "member_channel_lite": {
+    "type": "object",
+    "properties": {
+     "to": {
+      "$ref": "#/components/schemas/channel_endpoint"
+     },
+     "from": {
+      "$ref": "#/components/schemas/channel_endpoint"
+     },
+     "id": {
+      "$ref": "#/components/schemas/leg_id"
+     },
+     "headers": {
+      "$ref": "#/components/schemas/headers"
+     },
+     "type": {
+      "$ref": "#/components/schemas/member_channel_type"
      }
     },
     "required": [
@@ -8805,6 +9256,22 @@
      }
     ]
    },
+   "member_channel_endpoint_id": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "$ref": "#/components/schemas/messages_channel_id"
+     }
+    }
+   },
+   "member_channel_endpoint_number": {
+    "type": "object",
+    "properties": {
+     "number": {
+      "$ref": "#/components/schemas/messages_channel_number"
+     }
+    }
+   },
    "numbers_v03": {
     "type": "array",
     "items": {
@@ -8907,13 +9374,146 @@
      }
     }
    },
+   "from_member": {
+    "type": "object",
+    "properties": {
+     "id": {
+      "$ref": "#/components/schemas/user_id"
+     }
+    }
+   },
    "event_embedded": {
     "type": "object",
     "properties": {
      "from_user": {
       "$ref": "#/components/schemas/from_user"
+     },
+     "from_member": {
+      "$ref": "#/components/schemas/from_member"
      }
     }
+   },
+   "transcription": {
+    "type": "boolean"
+   },
+   "transcription_url": {
+    "type": "string",
+    "format": "uri",
+    "nullable": true
+   },
+   "api_key": {
+    "type": "string"
+   },
+   "message_type": {
+    "type": "string",
+    "enum": [
+     "text",
+     "image",
+     "video",
+     "audio",
+     "file",
+     "vcard",
+     "custom",
+     "template"
+    ]
+   },
+   "message_url": {
+    "type": "string",
+    "format": "uri"
+   },
+   "message_text": {
+    "type": "string"
+   },
+   "message_image": {
+    "type": "object",
+    "properties": {
+     "url": {
+      "$ref": "#/components/schemas/message_url"
+     }
+    },
+    "required": [
+     "url"
+    ]
+   },
+   "message_audio": {
+    "type": "object",
+    "properties": {
+     "url": {
+      "$ref": "#/components/schemas/message_url"
+     }
+    },
+    "required": [
+     "url"
+    ]
+   },
+   "message_video": {
+    "type": "object",
+    "properties": {
+     "url": {
+      "$ref": "#/components/schemas/message_url"
+     }
+    },
+    "required": [
+     "url"
+    ]
+   },
+   "message_file": {
+    "type": "object",
+    "properties": {
+     "url": {
+      "$ref": "#/components/schemas/message_url"
+     }
+    },
+    "required": [
+     "url"
+    ]
+   },
+   "message_template": {
+    "type": "object",
+    "properties": {
+     "name": {
+      "type": "string"
+     },
+     "parameters": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    },
+    "required": [
+     "name"
+    ]
+   },
+   "message_whatsapp": {
+    "type": "object",
+    "properties": {
+     "policy": {
+      "type": "string"
+     },
+     "locale": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "policy",
+     "locale"
+    ]
+   },
+   "message_custom": {
+    "type": "object"
+   },
+   "message_vcard": {
+    "type": "object",
+    "properties": {
+     "url": {
+      "type": "string",
+      "format": "uri"
+     }
+    },
+    "required": [
+     "url"
+    ]
    },
    "ApplicationResponse": {
     "properties": {
@@ -9527,6 +10127,9 @@
           "type": "integer",
           "minimum": 1,
           "maximum": 32
+         },
+         "transcription": {
+          "$ref": "#/components/schemas/transcription"
          },
          "recording_id": {
           "type": "string"
@@ -10506,10 +11109,10 @@
          "channel": {
           "oneOf": [
            {
-            "$ref": "#/components/schemas/channel_lite"
+            "$ref": "#/components/schemas/member_channel_lite"
            },
            {
-            "$ref": "#/components/schemas/channel"
+            "$ref": "#/components/schemas/member_channel"
            }
           ]
          },
@@ -10535,10 +11138,10 @@
            "channel": {
             "oneOf": [
              {
-              "$ref": "#/components/schemas/channel_lite"
+              "$ref": "#/components/schemas/member_channel_lite"
              },
              {
-              "$ref": "#/components/schemas/channel"
+              "$ref": "#/components/schemas/member_channel"
              }
             ]
            },
@@ -10656,10 +11259,10 @@
          "channel": {
           "oneOf": [
            {
-            "$ref": "#/components/schemas/channel_lite"
+            "$ref": "#/components/schemas/member_channel_lite"
            },
            {
-            "$ref": "#/components/schemas/channel"
+            "$ref": "#/components/schemas/member_channel"
            }
           ]
          },
@@ -10744,10 +11347,10 @@
          "channel": {
           "oneOf": [
            {
-            "$ref": "#/components/schemas/channel_lite"
+            "$ref": "#/components/schemas/member_channel_lite"
            },
            {
-            "$ref": "#/components/schemas/channel"
+            "$ref": "#/components/schemas/member_channel"
            }
           ]
          }
@@ -11958,6 +12561,138 @@
          "type": {
           "type": "string",
           "enum": [
+           "audio:transcribe:done"
+          ]
+         },
+         "body": {
+          "type": "object",
+          "properties": {
+           "request_id": {
+            "type": "string"
+           },
+           "recording_id": {
+            "type": "string"
+           },
+           "transcription_url": {
+            "$ref": "#/components/schemas/transcription_url"
+           },
+           "error": {
+            "$ref": "#/components/schemas/audio_error"
+           },
+           "channel": {
+            "oneOf": [
+             {
+              "$ref": "#/components/schemas/channel_lite"
+             },
+             {
+              "$ref": "#/components/schemas/channel"
+             }
+            ]
+           }
+          },
+          "required": [
+           "request_id",
+           "recording_id",
+           "channel"
+          ]
+         },
+         "application_id": {
+          "$ref": "#/components/schemas/application_id"
+         },
+         "timestamp": {
+          "$ref": "#/components/schemas/date"
+         },
+         "params": {
+          "type": "object"
+         },
+         "id": {
+          "$ref": "#/components/schemas/event_id"
+         },
+         "conversation_id": {
+          "$ref": "#/components/schemas/conversation_id"
+         },
+         "state": {
+          "$ref": "#/components/schemas/event_state"
+         },
+         "from": {
+          "$ref": "#/components/schemas/nullable_member_id"
+         },
+         "_embedded": {
+          "$ref": "#/components/schemas/event_embedded"
+         }
+        },
+        "required": [
+         "type",
+         "application_id",
+         "timestamp",
+         "from"
+        ]
+       },
+       {
+        "type": "object",
+        "properties": {
+         "type": {
+          "type": "string",
+          "enum": [
+           "audio:transcribe:done"
+          ]
+         },
+         "body": {
+          "type": "object",
+          "properties": {
+           "request_id": {
+            "type": "string"
+           },
+           "recording_id": {
+            "type": "string"
+           },
+           "transcription_url": {
+            "$ref": "#/components/schemas/transcription_url"
+           },
+           "error": {
+            "$ref": "#/components/schemas/audio_error"
+           }
+          },
+          "required": [
+           "request_id",
+           "recording_id"
+          ]
+         },
+         "application_id": {
+          "$ref": "#/components/schemas/application_id"
+         },
+         "timestamp": {
+          "$ref": "#/components/schemas/date"
+         },
+         "params": {
+          "type": "object"
+         },
+         "id": {
+          "$ref": "#/components/schemas/event_id"
+         },
+         "conversation_id": {
+          "$ref": "#/components/schemas/conversation_id"
+         },
+         "state": {
+          "$ref": "#/components/schemas/event_state"
+         }
+        },
+        "required": [
+         "type",
+         "application_id",
+         "timestamp"
+        ]
+       }
+      ]
+     },
+     {
+      "oneOf": [
+       {
+        "type": "object",
+        "properties": {
+         "type": {
+          "type": "string",
+          "enum": [
            "sip:ringing"
           ]
          },
@@ -12704,6 +13439,9 @@
             "$ref": "#/components/schemas/channel"
            }
           ]
+         },
+         "properties": {
+          "$ref": "#/components/schemas/properties_knocking"
          }
         },
         "required": [
@@ -13105,12 +13843,106 @@
        "from",
        "type"
       ]
+     },
+     {
+      "type": "object",
+      "properties": {
+       "params": {
+        "type": "object"
+       },
+       "id": {
+        "$ref": "#/components/schemas/event_id"
+       },
+       "conversation_id": {
+        "$ref": "#/components/schemas/conversation_id"
+       },
+       "application_id": {
+        "$ref": "#/components/schemas/application_id"
+       },
+       "timestamp": {
+        "$ref": "#/components/schemas/date"
+       },
+       "from": {
+        "$ref": "#/components/schemas/member_id"
+       },
+       "_embedded": {
+        "$ref": "#/components/schemas/event_embedded"
+       },
+       "type": {
+        "type": "string",
+        "enum": [
+         "message"
+        ]
+       },
+       "body": {
+        "oneOf": [
+         {
+          "type": "object",
+          "properties": {
+           "message_type": {
+            "type": "string",
+            "enum": [
+             "vcard"
+            ]
+           },
+           "vcard": {
+            "$ref": "#/components/schemas/message_vcard"
+           }
+          },
+          "required": [
+           "message_type",
+           "vcard"
+          ]
+         },
+         {
+          "type": "object",
+          "properties": {
+           "vcard": {
+            "$ref": "#/components/schemas/message_vcard"
+           },
+           "message_type": {
+            "type": "string",
+            "enum": [
+             "text",
+             "image",
+             "video",
+             "audio",
+             "file",
+             "custom",
+             "template"
+            ]
+           }
+          },
+          "required": [
+           "message_type"
+          ]
+         }
+        ]
+       }
+      },
+      "required": [
+       "id",
+       "conversation_id",
+       "application_id",
+       "timestamp",
+       "from",
+       "type"
+      ]
      }
     ]
    }
   },
   "parameters": {
    "event_type": {
+    "description": "Event type. A sequence of event types separated by a comma. The maximum number of items allowed is 5.",
+    "examples": {
+     "single": {
+      "value": "member:joined"
+     },
+     "sequence": {
+      "value": "member:joined,...,member:invited"
+     }
+    },
     "name": "event_type",
     "in": "query",
     "schema": {
@@ -14239,6 +15071,9 @@
                "minimum": 1,
                "maximum": 32
               },
+              "transcription": {
+               "$ref": "#/components/schemas/transcription"
+              },
               "recording_id": {
                "type": "string"
               }
@@ -15428,10 +16263,10 @@
               "channel": {
                "oneOf": [
                 {
-                 "$ref": "#/components/schemas/channel_lite"
+                 "$ref": "#/components/schemas/member_channel_lite"
                 },
                 {
-                 "$ref": "#/components/schemas/channel"
+                 "$ref": "#/components/schemas/member_channel"
                 }
                ]
               },
@@ -15457,10 +16292,10 @@
                 "channel": {
                  "oneOf": [
                   {
-                   "$ref": "#/components/schemas/channel_lite"
+                   "$ref": "#/components/schemas/member_channel_lite"
                   },
                   {
-                   "$ref": "#/components/schemas/channel"
+                   "$ref": "#/components/schemas/member_channel"
                   }
                  ]
                 },
@@ -15600,10 +16435,10 @@
               "channel": {
                "oneOf": [
                 {
-                 "$ref": "#/components/schemas/channel_lite"
+                 "$ref": "#/components/schemas/member_channel_lite"
                 },
                 {
-                 "$ref": "#/components/schemas/channel"
+                 "$ref": "#/components/schemas/member_channel"
                 }
                ]
               },
@@ -15710,10 +16545,10 @@
               "channel": {
                "oneOf": [
                 {
-                 "$ref": "#/components/schemas/channel_lite"
+                 "$ref": "#/components/schemas/member_channel_lite"
                 },
                 {
-                 "$ref": "#/components/schemas/channel"
+                 "$ref": "#/components/schemas/member_channel"
                 }
                ]
               }
@@ -17131,6 +17966,183 @@
          ]
         },
         {
+         "oneOf": [
+          {
+           "type": "object",
+           "properties": {
+            "to": {
+             "$ref": "#/components/schemas/member_id"
+            },
+            "type": {
+             "type": "string",
+             "enum": [
+              "audio:transcribe:done"
+             ]
+            },
+            "id": {
+             "$ref": "#/components/schemas/event_id"
+            },
+            "timestamp": {
+             "$ref": "#/components/schemas/date"
+            },
+            "state": {
+             "$ref": "#/components/schemas/event_state"
+            },
+            "body": {
+             "oneOf": [
+              {
+               "type": "object",
+               "properties": {
+                "request_id": {
+                 "type": "string"
+                },
+                "recording_id": {
+                 "type": "string"
+                },
+                "transcription_url": {
+                 "$ref": "#/components/schemas/transcription_url"
+                },
+                "error": {
+                 "$ref": "#/components/schemas/audio_error"
+                },
+                "channel": {
+                 "oneOf": [
+                  {
+                   "$ref": "#/components/schemas/channel_lite"
+                  },
+                  {
+                   "$ref": "#/components/schemas/channel"
+                  }
+                 ]
+                }
+               },
+               "required": [
+                "request_id",
+                "recording_id",
+                "channel"
+               ]
+              },
+              {
+               "type": "object",
+               "properties": {
+                "timestamp": {
+                 "type": "object",
+                 "properties": {
+                  "deleted": {
+                   "$ref": "#/components/schemas/iso_date"
+                  }
+                 },
+                 "required": [
+                  "deleted"
+                 ]
+                }
+               }
+              }
+             ]
+            },
+            "conversation_id": {
+             "$ref": "#/components/schemas/conversation_id"
+            },
+            "application_id": {
+             "$ref": "#/components/schemas/application_id"
+            },
+            "from": {
+             "$ref": "#/components/schemas/nullable_member_id"
+            },
+            "_embedded": {
+             "$ref": "#/components/schemas/event_embedded"
+            }
+           },
+           "required": [
+            "type",
+            "id",
+            "conversation_id",
+            "application_id",
+            "from"
+           ]
+          },
+          {
+           "type": "object",
+           "properties": {
+            "to": {
+             "$ref": "#/components/schemas/member_id"
+            },
+            "type": {
+             "type": "string",
+             "enum": [
+              "audio:transcribe:done"
+             ]
+            },
+            "id": {
+             "$ref": "#/components/schemas/event_id"
+            },
+            "timestamp": {
+             "$ref": "#/components/schemas/date"
+            },
+            "state": {
+             "$ref": "#/components/schemas/event_state"
+            },
+            "_embedded": {
+             "$ref": "#/components/schemas/event_embedded"
+            },
+            "body": {
+             "oneOf": [
+              {
+               "type": "object",
+               "properties": {
+                "request_id": {
+                 "type": "string"
+                },
+                "recording_id": {
+                 "type": "string"
+                },
+                "transcription_url": {
+                 "$ref": "#/components/schemas/transcription_url"
+                },
+                "error": {
+                 "$ref": "#/components/schemas/audio_error"
+                }
+               },
+               "required": [
+                "request_id",
+                "recording_id"
+               ]
+              },
+              {
+               "type": "object",
+               "properties": {
+                "timestamp": {
+                 "type": "object",
+                 "properties": {
+                  "deleted": {
+                   "$ref": "#/components/schemas/iso_date"
+                  }
+                 },
+                 "required": [
+                  "deleted"
+                 ]
+                }
+               }
+              }
+             ]
+            },
+            "conversation_id": {
+             "$ref": "#/components/schemas/conversation_id"
+            },
+            "application_id": {
+             "$ref": "#/components/schemas/application_id"
+            }
+           },
+           "required": [
+            "type",
+            "id",
+            "conversation_id",
+            "application_id"
+           ]
+          }
+         ]
+        },
+        {
          "type": "object",
          "properties": {
           "to": {
@@ -18317,6 +19329,113 @@
              },
              "required": [
               "message"
+             ]
+            },
+            {
+             "type": "object",
+             "properties": {
+              "timestamp": {
+               "type": "object",
+               "properties": {
+                "deleted": {
+                 "$ref": "#/components/schemas/iso_date"
+                }
+               },
+               "required": [
+                "deleted"
+               ]
+              }
+             }
+            }
+           ]
+          },
+          "conversation_id": {
+           "$ref": "#/components/schemas/conversation_id"
+          },
+          "application_id": {
+           "$ref": "#/components/schemas/application_id"
+          }
+         },
+         "required": [
+          "type",
+          "id",
+          "timestamp",
+          "conversation_id",
+          "application_id"
+         ]
+        },
+        {
+         "type": "object",
+         "properties": {
+          "to": {
+           "$ref": "#/components/schemas/member_id"
+          },
+          "from": {
+           "$ref": "#/components/schemas/nullable_member_id"
+          },
+          "type": {
+           "type": "string",
+           "enum": [
+            "message"
+           ]
+          },
+          "id": {
+           "$ref": "#/components/schemas/event_id"
+          },
+          "timestamp": {
+           "$ref": "#/components/schemas/iso_date"
+          },
+          "state": {
+           "$ref": "#/components/schemas/event_state"
+          },
+          "_embedded": {
+           "$ref": "#/components/schemas/event_embedded"
+          },
+          "body": {
+           "oneOf": [
+            {
+             "oneOf": [
+              {
+               "type": "object",
+               "properties": {
+                "message_type": {
+                 "type": "string",
+                 "enum": [
+                  "vcard"
+                 ]
+                },
+                "vcard": {
+                 "$ref": "#/components/schemas/message_vcard"
+                }
+               },
+               "required": [
+                "message_type",
+                "vcard"
+               ]
+              },
+              {
+               "type": "object",
+               "properties": {
+                "vcard": {
+                 "$ref": "#/components/schemas/message_vcard"
+                },
+                "message_type": {
+                 "type": "string",
+                 "enum": [
+                  "text",
+                  "image",
+                  "video",
+                  "audio",
+                  "file",
+                  "custom",
+                  "template"
+                 ]
+                }
+               },
+               "required": [
+                "message_type"
+               ]
+              }
              ]
             },
             {
@@ -18938,6 +20057,9 @@
                "minimum": 1,
                "maximum": 32
               },
+              "transcription": {
+               "$ref": "#/components/schemas/transcription"
+              },
               "recording_id": {
                "type": "string"
               }
@@ -20067,10 +21189,10 @@
               "channel": {
                "oneOf": [
                 {
-                 "$ref": "#/components/schemas/channel_lite"
+                 "$ref": "#/components/schemas/member_channel_lite"
                 },
                 {
-                 "$ref": "#/components/schemas/channel"
+                 "$ref": "#/components/schemas/member_channel"
                 }
                ]
               },
@@ -20096,10 +21218,10 @@
                 "channel": {
                  "oneOf": [
                   {
-                   "$ref": "#/components/schemas/channel_lite"
+                   "$ref": "#/components/schemas/member_channel_lite"
                   },
                   {
-                   "$ref": "#/components/schemas/channel"
+                   "$ref": "#/components/schemas/member_channel"
                   }
                  ]
                 },
@@ -20235,10 +21357,10 @@
               "channel": {
                "oneOf": [
                 {
-                 "$ref": "#/components/schemas/channel_lite"
+                 "$ref": "#/components/schemas/member_channel_lite"
                 },
                 {
-                 "$ref": "#/components/schemas/channel"
+                 "$ref": "#/components/schemas/member_channel"
                 }
                ]
               },
@@ -20341,10 +21463,10 @@
               "channel": {
                "oneOf": [
                 {
-                 "$ref": "#/components/schemas/channel_lite"
+                 "$ref": "#/components/schemas/member_channel_lite"
                 },
                 {
-                 "$ref": "#/components/schemas/channel"
+                 "$ref": "#/components/schemas/member_channel"
                 }
                ]
               }
@@ -21698,6 +22820,175 @@
          ]
         },
         {
+         "oneOf": [
+          {
+           "type": "object",
+           "properties": {
+            "to": {
+             "$ref": "#/components/schemas/member_id"
+            },
+            "type": {
+             "type": "string",
+             "enum": [
+              "audio:transcribe:done"
+             ]
+            },
+            "id": {
+             "$ref": "#/components/schemas/event_id"
+            },
+            "timestamp": {
+             "$ref": "#/components/schemas/date"
+            },
+            "state": {
+             "$ref": "#/components/schemas/event_state"
+            },
+            "body": {
+             "oneOf": [
+              {
+               "type": "object",
+               "properties": {
+                "request_id": {
+                 "type": "string"
+                },
+                "recording_id": {
+                 "type": "string"
+                },
+                "transcription_url": {
+                 "$ref": "#/components/schemas/transcription_url"
+                },
+                "error": {
+                 "$ref": "#/components/schemas/audio_error"
+                },
+                "channel": {
+                 "oneOf": [
+                  {
+                   "$ref": "#/components/schemas/channel_lite"
+                  },
+                  {
+                   "$ref": "#/components/schemas/channel"
+                  }
+                 ]
+                }
+               },
+               "required": [
+                "request_id",
+                "recording_id",
+                "channel"
+               ]
+              },
+              {
+               "type": "object",
+               "properties": {
+                "timestamp": {
+                 "type": "object",
+                 "properties": {
+                  "deleted": {
+                   "$ref": "#/components/schemas/iso_date"
+                  }
+                 },
+                 "required": [
+                  "deleted"
+                 ]
+                }
+               }
+              }
+             ]
+            },
+            "_links": {
+             "$ref": "#/components/schemas/_links"
+            },
+            "from": {
+             "$ref": "#/components/schemas/nullable_member_id"
+            },
+            "_embedded": {
+             "$ref": "#/components/schemas/event_embedded"
+            }
+           },
+           "required": [
+            "type",
+            "id",
+            "_links",
+            "from"
+           ]
+          },
+          {
+           "type": "object",
+           "properties": {
+            "to": {
+             "$ref": "#/components/schemas/member_id"
+            },
+            "type": {
+             "type": "string",
+             "enum": [
+              "audio:transcribe:done"
+             ]
+            },
+            "id": {
+             "$ref": "#/components/schemas/event_id"
+            },
+            "timestamp": {
+             "$ref": "#/components/schemas/date"
+            },
+            "state": {
+             "$ref": "#/components/schemas/event_state"
+            },
+            "_embedded": {
+             "$ref": "#/components/schemas/event_embedded"
+            },
+            "body": {
+             "oneOf": [
+              {
+               "type": "object",
+               "properties": {
+                "request_id": {
+                 "type": "string"
+                },
+                "recording_id": {
+                 "type": "string"
+                },
+                "transcription_url": {
+                 "$ref": "#/components/schemas/transcription_url"
+                },
+                "error": {
+                 "$ref": "#/components/schemas/audio_error"
+                }
+               },
+               "required": [
+                "request_id",
+                "recording_id"
+               ]
+              },
+              {
+               "type": "object",
+               "properties": {
+                "timestamp": {
+                 "type": "object",
+                 "properties": {
+                  "deleted": {
+                   "$ref": "#/components/schemas/iso_date"
+                  }
+                 },
+                 "required": [
+                  "deleted"
+                 ]
+                }
+               }
+              }
+             ]
+            },
+            "_links": {
+             "$ref": "#/components/schemas/_links"
+            }
+           },
+           "required": [
+            "type",
+            "id",
+            "_links"
+           ]
+          }
+         ]
+        },
+        {
          "type": "object",
          "properties": {
           "to": {
@@ -22858,6 +24149,109 @@
           "timestamp",
           "_links"
          ]
+        },
+        {
+         "type": "object",
+         "properties": {
+          "to": {
+           "$ref": "#/components/schemas/member_id"
+          },
+          "from": {
+           "$ref": "#/components/schemas/nullable_member_id"
+          },
+          "type": {
+           "type": "string",
+           "enum": [
+            "message"
+           ]
+          },
+          "id": {
+           "$ref": "#/components/schemas/event_id"
+          },
+          "timestamp": {
+           "$ref": "#/components/schemas/iso_date"
+          },
+          "state": {
+           "$ref": "#/components/schemas/event_state"
+          },
+          "_embedded": {
+           "$ref": "#/components/schemas/event_embedded"
+          },
+          "body": {
+           "oneOf": [
+            {
+             "oneOf": [
+              {
+               "type": "object",
+               "properties": {
+                "message_type": {
+                 "type": "string",
+                 "enum": [
+                  "vcard"
+                 ]
+                },
+                "vcard": {
+                 "$ref": "#/components/schemas/message_vcard"
+                }
+               },
+               "required": [
+                "message_type",
+                "vcard"
+               ]
+              },
+              {
+               "type": "object",
+               "properties": {
+                "vcard": {
+                 "$ref": "#/components/schemas/message_vcard"
+                },
+                "message_type": {
+                 "type": "string",
+                 "enum": [
+                  "text",
+                  "image",
+                  "video",
+                  "audio",
+                  "file",
+                  "custom",
+                  "template"
+                 ]
+                }
+               },
+               "required": [
+                "message_type"
+               ]
+              }
+             ]
+            },
+            {
+             "type": "object",
+             "properties": {
+              "timestamp": {
+               "type": "object",
+               "properties": {
+                "deleted": {
+                 "$ref": "#/components/schemas/iso_date"
+                }
+               },
+               "required": [
+                "deleted"
+               ]
+              }
+             }
+            }
+           ]
+          },
+          "_links": {
+           "$ref": "#/components/schemas/_links"
+          }
+         },
+         "required": [
+          "type",
+          "id",
+          "timestamp",
+          "_links"
+         ]
         }
        ]
       }
@@ -23444,6 +24838,9 @@
                "type": "integer",
                "minimum": 1,
                "maximum": 32
+              },
+              "transcription": {
+               "$ref": "#/components/schemas/transcription"
               },
               "recording_id": {
                "type": "string"
@@ -24704,10 +26101,10 @@
               "channel": {
                "oneOf": [
                 {
-                 "$ref": "#/components/schemas/channel_lite"
+                 "$ref": "#/components/schemas/member_channel_lite"
                 },
                 {
-                 "$ref": "#/components/schemas/channel"
+                 "$ref": "#/components/schemas/member_channel"
                 }
                ]
               },
@@ -24733,10 +26130,10 @@
                 "channel": {
                  "oneOf": [
                   {
-                   "$ref": "#/components/schemas/channel_lite"
+                   "$ref": "#/components/schemas/member_channel_lite"
                   },
                   {
-                   "$ref": "#/components/schemas/channel"
+                   "$ref": "#/components/schemas/member_channel"
                   }
                  ]
                 },
@@ -24872,10 +26269,10 @@
               "channel": {
                "oneOf": [
                 {
-                 "$ref": "#/components/schemas/channel_lite"
+                 "$ref": "#/components/schemas/member_channel_lite"
                 },
                 {
-                 "$ref": "#/components/schemas/channel"
+                 "$ref": "#/components/schemas/member_channel"
                 }
                ]
               },
@@ -24978,10 +26375,10 @@
               "channel": {
                "oneOf": [
                 {
-                 "$ref": "#/components/schemas/channel_lite"
+                 "$ref": "#/components/schemas/member_channel_lite"
                 },
                 {
-                 "$ref": "#/components/schemas/channel"
+                 "$ref": "#/components/schemas/member_channel"
                 }
                ]
               }
@@ -26335,6 +27732,175 @@
          ]
         },
         {
+         "oneOf": [
+          {
+           "type": "object",
+           "properties": {
+            "to": {
+             "$ref": "#/components/schemas/member_id"
+            },
+            "type": {
+             "type": "string",
+             "enum": [
+              "audio:transcribe:done"
+             ]
+            },
+            "id": {
+             "$ref": "#/components/schemas/event_id"
+            },
+            "timestamp": {
+             "$ref": "#/components/schemas/date"
+            },
+            "state": {
+             "$ref": "#/components/schemas/event_state"
+            },
+            "body": {
+             "oneOf": [
+              {
+               "type": "object",
+               "properties": {
+                "request_id": {
+                 "type": "string"
+                },
+                "recording_id": {
+                 "type": "string"
+                },
+                "transcription_url": {
+                 "$ref": "#/components/schemas/transcription_url"
+                },
+                "error": {
+                 "$ref": "#/components/schemas/audio_error"
+                },
+                "channel": {
+                 "oneOf": [
+                  {
+                   "$ref": "#/components/schemas/channel_lite"
+                  },
+                  {
+                   "$ref": "#/components/schemas/channel"
+                  }
+                 ]
+                }
+               },
+               "required": [
+                "request_id",
+                "recording_id",
+                "channel"
+               ]
+              },
+              {
+               "type": "object",
+               "properties": {
+                "timestamp": {
+                 "type": "object",
+                 "properties": {
+                  "deleted": {
+                   "$ref": "#/components/schemas/iso_date"
+                  }
+                 },
+                 "required": [
+                  "deleted"
+                 ]
+                }
+               }
+              }
+             ]
+            },
+            "_links": {
+             "$ref": "#/components/schemas/_links"
+            },
+            "from": {
+             "$ref": "#/components/schemas/nullable_member_id"
+            },
+            "_embedded": {
+             "$ref": "#/components/schemas/event_embedded"
+            }
+           },
+           "required": [
+            "type",
+            "id",
+            "_links",
+            "from"
+           ]
+          },
+          {
+           "type": "object",
+           "properties": {
+            "to": {
+             "$ref": "#/components/schemas/member_id"
+            },
+            "type": {
+             "type": "string",
+             "enum": [
+              "audio:transcribe:done"
+             ]
+            },
+            "id": {
+             "$ref": "#/components/schemas/event_id"
+            },
+            "timestamp": {
+             "$ref": "#/components/schemas/date"
+            },
+            "state": {
+             "$ref": "#/components/schemas/event_state"
+            },
+            "_embedded": {
+             "$ref": "#/components/schemas/event_embedded"
+            },
+            "body": {
+             "oneOf": [
+              {
+               "type": "object",
+               "properties": {
+                "request_id": {
+                 "type": "string"
+                },
+                "recording_id": {
+                 "type": "string"
+                },
+                "transcription_url": {
+                 "$ref": "#/components/schemas/transcription_url"
+                },
+                "error": {
+                 "$ref": "#/components/schemas/audio_error"
+                }
+               },
+               "required": [
+                "request_id",
+                "recording_id"
+               ]
+              },
+              {
+               "type": "object",
+               "properties": {
+                "timestamp": {
+                 "type": "object",
+                 "properties": {
+                  "deleted": {
+                   "$ref": "#/components/schemas/iso_date"
+                  }
+                 },
+                 "required": [
+                  "deleted"
+                 ]
+                }
+               }
+              }
+             ]
+            },
+            "_links": {
+             "$ref": "#/components/schemas/_links"
+            }
+           },
+           "required": [
+            "type",
+            "id",
+            "_links"
+           ]
+          }
+         ]
+        },
+        {
          "type": "object",
          "properties": {
           "to": {
@@ -27495,6 +29061,109 @@
           "timestamp",
           "_links"
          ]
+        },
+        {
+         "type": "object",
+         "properties": {
+          "to": {
+           "$ref": "#/components/schemas/member_id"
+          },
+          "from": {
+           "$ref": "#/components/schemas/nullable_member_id"
+          },
+          "type": {
+           "type": "string",
+           "enum": [
+            "message"
+           ]
+          },
+          "id": {
+           "$ref": "#/components/schemas/event_id"
+          },
+          "timestamp": {
+           "$ref": "#/components/schemas/iso_date"
+          },
+          "state": {
+           "$ref": "#/components/schemas/event_state"
+          },
+          "_embedded": {
+           "$ref": "#/components/schemas/event_embedded"
+          },
+          "body": {
+           "oneOf": [
+            {
+             "oneOf": [
+              {
+               "type": "object",
+               "properties": {
+                "message_type": {
+                 "type": "string",
+                 "enum": [
+                  "vcard"
+                 ]
+                },
+                "vcard": {
+                 "$ref": "#/components/schemas/message_vcard"
+                }
+               },
+               "required": [
+                "message_type",
+                "vcard"
+               ]
+              },
+              {
+               "type": "object",
+               "properties": {
+                "vcard": {
+                 "$ref": "#/components/schemas/message_vcard"
+                },
+                "message_type": {
+                 "type": "string",
+                 "enum": [
+                  "text",
+                  "image",
+                  "video",
+                  "audio",
+                  "file",
+                  "custom",
+                  "template"
+                 ]
+                }
+               },
+               "required": [
+                "message_type"
+               ]
+              }
+             ]
+            },
+            {
+             "type": "object",
+             "properties": {
+              "timestamp": {
+               "type": "object",
+               "properties": {
+                "deleted": {
+                 "$ref": "#/components/schemas/iso_date"
+                }
+               },
+               "required": [
+                "deleted"
+               ]
+              }
+             }
+            }
+           ]
+          },
+          "_links": {
+           "$ref": "#/components/schemas/_links"
+          }
+         },
+         "required": [
+          "type",
+          "id",
+          "timestamp",
+          "_links"
+         ]
         }
        ]
       }
@@ -28085,6 +29754,9 @@
                 "type": "integer",
                 "minimum": 1,
                 "maximum": 32
+               },
+               "transcription": {
+                "$ref": "#/components/schemas/transcription"
                },
                "recording_id": {
                 "type": "string"
@@ -29243,10 +30915,10 @@
                "channel": {
                 "oneOf": [
                  {
-                  "$ref": "#/components/schemas/channel_lite"
+                  "$ref": "#/components/schemas/member_channel_lite"
                  },
                  {
-                  "$ref": "#/components/schemas/channel"
+                  "$ref": "#/components/schemas/member_channel"
                  }
                 ]
                },
@@ -29272,10 +30944,10 @@
                  "channel": {
                   "oneOf": [
                    {
-                    "$ref": "#/components/schemas/channel_lite"
+                    "$ref": "#/components/schemas/member_channel_lite"
                    },
                    {
-                    "$ref": "#/components/schemas/channel"
+                    "$ref": "#/components/schemas/member_channel"
                    }
                   ]
                  },
@@ -29413,10 +31085,10 @@
                "channel": {
                 "oneOf": [
                  {
-                  "$ref": "#/components/schemas/channel_lite"
+                  "$ref": "#/components/schemas/member_channel_lite"
                  },
                  {
-                  "$ref": "#/components/schemas/channel"
+                  "$ref": "#/components/schemas/member_channel"
                  }
                 ]
                },
@@ -29521,10 +31193,10 @@
                "channel": {
                 "oneOf": [
                  {
-                  "$ref": "#/components/schemas/channel_lite"
+                  "$ref": "#/components/schemas/member_channel_lite"
                  },
                  {
-                  "$ref": "#/components/schemas/channel"
+                  "$ref": "#/components/schemas/member_channel"
                  }
                 ]
                }
@@ -30913,6 +32585,179 @@
           ]
          },
          {
+          "oneOf": [
+           {
+            "type": "object",
+            "properties": {
+             "to": {
+              "$ref": "#/components/schemas/member_id"
+             },
+             "id": {
+              "$ref": "#/components/schemas/event_id"
+             },
+             "timestamp": {
+              "$ref": "#/components/schemas/iso_date"
+             },
+             "state": {
+              "$ref": "#/components/schemas/event_state"
+             },
+             "href": {
+              "type": "string",
+              "format": "uri"
+             },
+             "body": {
+              "oneOf": [
+               {
+                "type": "object",
+                "properties": {
+                 "request_id": {
+                  "type": "string"
+                 },
+                 "recording_id": {
+                  "type": "string"
+                 },
+                 "transcription_url": {
+                  "$ref": "#/components/schemas/transcription_url"
+                 },
+                 "error": {
+                  "$ref": "#/components/schemas/audio_error"
+                 },
+                 "channel": {
+                  "oneOf": [
+                   {
+                    "$ref": "#/components/schemas/channel_lite"
+                   },
+                   {
+                    "$ref": "#/components/schemas/channel"
+                   }
+                  ]
+                 }
+                },
+                "required": [
+                 "request_id",
+                 "recording_id",
+                 "channel"
+                ]
+               },
+               {
+                "type": "object",
+                "properties": {
+                 "timestamp": {
+                  "type": "object",
+                  "properties": {
+                   "deleted": {
+                    "$ref": "#/components/schemas/iso_date"
+                   }
+                  },
+                  "required": [
+                   "deleted"
+                  ]
+                 }
+                }
+               }
+              ]
+             },
+             "type": {
+              "type": "string",
+              "enum": [
+               "audio:transcribe:done"
+              ]
+             },
+             "from": {
+              "$ref": "#/components/schemas/nullable_member_id"
+             },
+             "_embedded": {
+              "$ref": "#/components/schemas/event_embedded"
+             }
+            },
+            "required": [
+             "id",
+             "timestamp",
+             "href",
+             "type",
+             "from"
+            ]
+           },
+           {
+            "type": "object",
+            "properties": {
+             "to": {
+              "$ref": "#/components/schemas/member_id"
+             },
+             "id": {
+              "$ref": "#/components/schemas/event_id"
+             },
+             "timestamp": {
+              "$ref": "#/components/schemas/iso_date"
+             },
+             "state": {
+              "$ref": "#/components/schemas/event_state"
+             },
+             "_embedded": {
+              "$ref": "#/components/schemas/event_embedded"
+             },
+             "href": {
+              "type": "string",
+              "format": "uri"
+             },
+             "body": {
+              "oneOf": [
+               {
+                "type": "object",
+                "properties": {
+                 "request_id": {
+                  "type": "string"
+                 },
+                 "recording_id": {
+                  "type": "string"
+                 },
+                 "transcription_url": {
+                  "$ref": "#/components/schemas/transcription_url"
+                 },
+                 "error": {
+                  "$ref": "#/components/schemas/audio_error"
+                 }
+                },
+                "required": [
+                 "request_id",
+                 "recording_id"
+                ]
+               },
+               {
+                "type": "object",
+                "properties": {
+                 "timestamp": {
+                  "type": "object",
+                  "properties": {
+                   "deleted": {
+                    "$ref": "#/components/schemas/iso_date"
+                   }
+                  },
+                  "required": [
+                   "deleted"
+                  ]
+                 }
+                }
+               }
+              ]
+             },
+             "type": {
+              "type": "string",
+              "enum": [
+               "audio:transcribe:done"
+              ]
+             }
+            },
+            "required": [
+             "id",
+             "timestamp",
+             "href",
+             "type"
+            ]
+           }
+          ]
+         },
+         {
           "type": "object",
           "properties": {
            "to": {
@@ -32095,6 +33940,111 @@
            "from",
            "type"
           ]
+         },
+         {
+          "type": "object",
+          "properties": {
+           "to": {
+            "$ref": "#/components/schemas/member_id"
+           },
+           "id": {
+            "$ref": "#/components/schemas/event_id"
+           },
+           "timestamp": {
+            "$ref": "#/components/schemas/iso_date"
+           },
+           "state": {
+            "$ref": "#/components/schemas/event_state"
+           },
+           "_embedded": {
+            "$ref": "#/components/schemas/event_embedded"
+           },
+           "href": {
+            "type": "string",
+            "format": "uri"
+           },
+           "body": {
+            "oneOf": [
+             {
+              "oneOf": [
+               {
+                "type": "object",
+                "properties": {
+                 "message_type": {
+                  "type": "string",
+                  "enum": [
+                   "vcard"
+                  ]
+                 },
+                 "vcard": {
+                  "$ref": "#/components/schemas/message_vcard"
+                 }
+                },
+                "required": [
+                 "message_type",
+                 "vcard"
+                ]
+               },
+               {
+                "type": "object",
+                "properties": {
+                 "vcard": {
+                  "$ref": "#/components/schemas/message_vcard"
+                 },
+                 "message_type": {
+                  "type": "string",
+                  "enum": [
+                   "text",
+                   "image",
+                   "video",
+                   "audio",
+                   "file",
+                   "custom",
+                   "template"
+                  ]
+                 }
+                },
+                "required": [
+                 "message_type"
+                ]
+               }
+              ]
+             },
+             {
+              "type": "object",
+              "properties": {
+               "timestamp": {
+                "type": "object",
+                "properties": {
+                 "deleted": {
+                  "$ref": "#/components/schemas/iso_date"
+                 }
+                },
+                "required": [
+                 "deleted"
+                ]
+               }
+              }
+             }
+            ]
+           },
+           "from": {
+            "$ref": "#/components/schemas/member_id"
+           },
+           "type": {
+            "type": "string",
+            "enum": [
+             "message"
+            ]
+           }
+          },
+          "required": [
+           "id",
+           "timestamp",
+           "href",
+           "from",
+           "type"
+          ]
          }
         ]
        }
@@ -32205,6 +34155,9 @@
         "user_id": {
          "type": "string"
         },
+        "api_key": {
+         "type": "string"
+        },
         "href": {
          "type": "string",
          "format": "uri"
@@ -32230,11 +34183,42 @@
         "id": {
          "type": "string"
         },
-        "name": {
-         "type": "string"
+        "_embedded": {
+         "type": "object",
+         "properties": {
+          "user": {
+           "type": "object",
+           "properties": {
+            "id": {
+             "$ref": "#/components/schemas/user_id"
+            },
+            "name": {
+             "$ref": "#/components/schemas/user_name"
+            }
+           },
+           "required": [
+            "id",
+            "name"
+           ]
+          },
+          "api_key": {
+           "$ref": "#/components/schemas/api_key"
+          }
+         },
+         "required": [
+          "user"
+         ]
         },
-        "user_id": {
-         "type": "string"
+        "properties": {
+         "type": "object",
+         "properties": {
+          "ttl": {
+           "$ref": "#/components/schemas/ttl"
+          }
+         },
+         "required": [
+          "ttl"
+         ]
         },
         "_links": {
          "$ref": "#/components/schemas/_links"
@@ -32242,8 +34226,8 @@
        },
        "required": [
         "id",
-        "name",
-        "user_id",
+        "_embedded",
+        "properties",
         "_links"
        ]
       }
@@ -32466,9 +34450,6 @@
           "pstn": {
            "$ref": "#/components/schemas/user_channel"
           },
-          "sms": {
-           "$ref": "#/components/schemas/user_channel"
-          },
           "sip": {
            "$ref": "#/components/schemas/user_channel"
           },
@@ -32477,6 +34458,21 @@
           },
           "websocket": {
            "$ref": "#/components/schemas/user_channel"
+          },
+          "sms": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "mms": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "whatsapp": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "viber": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "messenger": {
+           "$ref": "#/components/schemas/user_channel_id"
           }
          }
         },
@@ -32521,9 +34517,6 @@
           "pstn": {
            "$ref": "#/components/schemas/user_channel"
           },
-          "sms": {
-           "$ref": "#/components/schemas/user_channel"
-          },
           "sip": {
            "$ref": "#/components/schemas/user_channel"
           },
@@ -32532,6 +34525,21 @@
           },
           "websocket": {
            "$ref": "#/components/schemas/user_channel"
+          },
+          "sms": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "mms": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "whatsapp": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "viber": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "messenger": {
+           "$ref": "#/components/schemas/user_channel_id"
           }
          }
         },
@@ -32899,6 +34907,46 @@
      }
     }
    },
+   "rtcOffer_v03": {
+    "description": "",
+    "content": {
+     "application/json": {
+      "schema": {
+       "type": "object",
+       "properties": {
+        "id": {
+         "$ref": "#/components/schemas/rtc_id"
+        },
+        "_links": {
+         "$ref": "#/components/schemas/_links"
+        },
+        "rtc": {
+         "type": "object",
+         "properties": {
+          "state": {
+           "type": "string"
+          },
+          "session_id": {
+           "$ref": "#/components/schemas/session_id"
+          },
+          "sdp": {
+           "type": "string"
+          }
+         },
+         "required": [
+          "state",
+          "session_id"
+         ]
+        }
+       },
+       "required": [
+        "id",
+        "_links"
+       ]
+      }
+     }
+    }
+   },
    "user_list": {
     "description": "",
     "content": {
@@ -33066,6 +35114,107 @@
        "required": [
         "page_size",
         "cursor"
+       ]
+      }
+     }
+    }
+   },
+   "user_session_list": {
+    "description": "",
+    "content": {
+     "application/json": {
+      "schema": {
+       "type": "object",
+       "properties": {
+        "page_size": {
+         "type": "integer"
+        },
+        "_links": {
+         "type": "object",
+         "properties": {
+          "first": {
+           "$ref": "#/components/schemas/href"
+          },
+          "self": {
+           "$ref": "#/components/schemas/href"
+          },
+          "next": {
+           "$ref": "#/components/schemas/href"
+          },
+          "prev": {
+           "$ref": "#/components/schemas/href"
+          }
+         },
+         "required": [
+          "first",
+          "self"
+         ]
+        },
+        "_embedded": {
+         "type": "object",
+         "properties": {
+          "sessions": {
+           "type": "array",
+           "items": {
+            "type": "object",
+            "properties": {
+             "id": {
+              "type": "string"
+             },
+             "_embedded": {
+              "type": "object",
+              "properties": {
+               "user": {
+                "type": "object",
+                "properties": {
+                 "id": {
+                  "$ref": "#/components/schemas/user_id"
+                 },
+                 "name": {
+                  "$ref": "#/components/schemas/user_name"
+                 }
+                },
+                "required": [
+                 "id",
+                 "name"
+                ]
+               },
+               "api_key": {
+                "$ref": "#/components/schemas/api_key"
+               }
+              },
+              "required": [
+               "user"
+              ]
+             },
+             "properties": {
+              "type": "object",
+              "properties": {
+               "ttl": {
+                "$ref": "#/components/schemas/ttl"
+               }
+              },
+              "required": [
+               "ttl"
+              ]
+             },
+             "_links": {
+              "$ref": "#/components/schemas/_links"
+             }
+            },
+            "required": [
+             "id",
+             "_embedded",
+             "properties",
+             "_links"
+            ]
+           }
+          }
+         }
+        }
+       },
+       "required": [
+        "page_size"
        ]
       }
      }
@@ -33684,6 +35833,9 @@
                       "type": "integer",
                       "minimum": 1,
                       "maximum": 32
+                     },
+                     "transcription": {
+                      "$ref": "#/components/schemas/transcription"
                      },
                      "recording_id": {
                       "type": "string"
@@ -34827,10 +36979,10 @@
                      "channel": {
                       "oneOf": [
                        {
-                        "$ref": "#/components/schemas/channel_lite"
+                        "$ref": "#/components/schemas/member_channel_lite"
                        },
                        {
-                        "$ref": "#/components/schemas/channel"
+                        "$ref": "#/components/schemas/member_channel"
                        }
                       ]
                      },
@@ -34856,10 +37008,10 @@
                        "channel": {
                         "oneOf": [
                          {
-                          "$ref": "#/components/schemas/channel_lite"
+                          "$ref": "#/components/schemas/member_channel_lite"
                          },
                          {
-                          "$ref": "#/components/schemas/channel"
+                          "$ref": "#/components/schemas/member_channel"
                          }
                         ]
                        },
@@ -34996,10 +37148,10 @@
                      "channel": {
                       "oneOf": [
                        {
-                        "$ref": "#/components/schemas/channel_lite"
+                        "$ref": "#/components/schemas/member_channel_lite"
                        },
                        {
-                        "$ref": "#/components/schemas/channel"
+                        "$ref": "#/components/schemas/member_channel"
                        }
                       ]
                      },
@@ -35103,10 +37255,10 @@
                      "channel": {
                       "oneOf": [
                        {
-                        "$ref": "#/components/schemas/channel_lite"
+                        "$ref": "#/components/schemas/member_channel_lite"
                        },
                        {
-                        "$ref": "#/components/schemas/channel"
+                        "$ref": "#/components/schemas/member_channel"
                        }
                       ]
                      }
@@ -36480,6 +38632,177 @@
                 ]
                },
                {
+                "oneOf": [
+                 {
+                  "type": "object",
+                  "properties": {
+                   "to": {
+                    "$ref": "#/components/schemas/member_id"
+                   },
+                   "id": {
+                    "$ref": "#/components/schemas/event_id"
+                   },
+                   "timestamp": {
+                    "$ref": "#/components/schemas/iso_date"
+                   },
+                   "state": {
+                    "$ref": "#/components/schemas/event_state"
+                   },
+                   "_links": {
+                    "$ref": "#/components/schemas/_links"
+                   },
+                   "body": {
+                    "oneOf": [
+                     {
+                      "type": "object",
+                      "properties": {
+                       "request_id": {
+                        "type": "string"
+                       },
+                       "recording_id": {
+                        "type": "string"
+                       },
+                       "transcription_url": {
+                        "$ref": "#/components/schemas/transcription_url"
+                       },
+                       "error": {
+                        "$ref": "#/components/schemas/audio_error"
+                       },
+                       "channel": {
+                        "oneOf": [
+                         {
+                          "$ref": "#/components/schemas/channel_lite"
+                         },
+                         {
+                          "$ref": "#/components/schemas/channel"
+                         }
+                        ]
+                       }
+                      },
+                      "required": [
+                       "request_id",
+                       "recording_id",
+                       "channel"
+                      ]
+                     },
+                     {
+                      "type": "object",
+                      "properties": {
+                       "timestamp": {
+                        "type": "object",
+                        "properties": {
+                         "deleted": {
+                          "$ref": "#/components/schemas/iso_date"
+                         }
+                        },
+                        "required": [
+                         "deleted"
+                        ]
+                       }
+                      }
+                     }
+                    ]
+                   },
+                   "type": {
+                    "type": "string",
+                    "enum": [
+                     "audio:transcribe:done"
+                    ]
+                   },
+                   "from": {
+                    "$ref": "#/components/schemas/nullable_member_id"
+                   },
+                   "_embedded": {
+                    "$ref": "#/components/schemas/event_embedded"
+                   }
+                  },
+                  "required": [
+                   "id",
+                   "timestamp",
+                   "_links",
+                   "type",
+                   "from"
+                  ]
+                 },
+                 {
+                  "type": "object",
+                  "properties": {
+                   "to": {
+                    "$ref": "#/components/schemas/member_id"
+                   },
+                   "id": {
+                    "$ref": "#/components/schemas/event_id"
+                   },
+                   "timestamp": {
+                    "$ref": "#/components/schemas/iso_date"
+                   },
+                   "state": {
+                    "$ref": "#/components/schemas/event_state"
+                   },
+                   "_embedded": {
+                    "$ref": "#/components/schemas/event_embedded"
+                   },
+                   "_links": {
+                    "$ref": "#/components/schemas/_links"
+                   },
+                   "body": {
+                    "oneOf": [
+                     {
+                      "type": "object",
+                      "properties": {
+                       "request_id": {
+                        "type": "string"
+                       },
+                       "recording_id": {
+                        "type": "string"
+                       },
+                       "transcription_url": {
+                        "$ref": "#/components/schemas/transcription_url"
+                       },
+                       "error": {
+                        "$ref": "#/components/schemas/audio_error"
+                       }
+                      },
+                      "required": [
+                       "request_id",
+                       "recording_id"
+                      ]
+                     },
+                     {
+                      "type": "object",
+                      "properties": {
+                       "timestamp": {
+                        "type": "object",
+                        "properties": {
+                         "deleted": {
+                          "$ref": "#/components/schemas/iso_date"
+                         }
+                        },
+                        "required": [
+                         "deleted"
+                        ]
+                       }
+                      }
+                     }
+                    ]
+                   },
+                   "type": {
+                    "type": "string",
+                    "enum": [
+                     "audio:transcribe:done"
+                    ]
+                   }
+                  },
+                  "required": [
+                   "id",
+                   "timestamp",
+                   "_links",
+                   "type"
+                  ]
+                 }
+                ]
+               },
+               {
                 "type": "object",
                 "properties": {
                  "to": {
@@ -37647,6 +39970,110 @@
                  "from",
                  "type"
                 ]
+               },
+               {
+                "type": "object",
+                "properties": {
+                 "to": {
+                  "$ref": "#/components/schemas/member_id"
+                 },
+                 "id": {
+                  "$ref": "#/components/schemas/event_id"
+                 },
+                 "timestamp": {
+                  "$ref": "#/components/schemas/iso_date"
+                 },
+                 "state": {
+                  "$ref": "#/components/schemas/event_state"
+                 },
+                 "_embedded": {
+                  "$ref": "#/components/schemas/event_embedded"
+                 },
+                 "_links": {
+                  "$ref": "#/components/schemas/_links"
+                 },
+                 "body": {
+                  "oneOf": [
+                   {
+                    "oneOf": [
+                     {
+                      "type": "object",
+                      "properties": {
+                       "message_type": {
+                        "type": "string",
+                        "enum": [
+                         "vcard"
+                        ]
+                       },
+                       "vcard": {
+                        "$ref": "#/components/schemas/message_vcard"
+                       }
+                      },
+                      "required": [
+                       "message_type",
+                       "vcard"
+                      ]
+                     },
+                     {
+                      "type": "object",
+                      "properties": {
+                       "vcard": {
+                        "$ref": "#/components/schemas/message_vcard"
+                       },
+                       "message_type": {
+                        "type": "string",
+                        "enum": [
+                         "text",
+                         "image",
+                         "video",
+                         "audio",
+                         "file",
+                         "custom",
+                         "template"
+                        ]
+                       }
+                      },
+                      "required": [
+                       "message_type"
+                      ]
+                     }
+                    ]
+                   },
+                   {
+                    "type": "object",
+                    "properties": {
+                     "timestamp": {
+                      "type": "object",
+                      "properties": {
+                       "deleted": {
+                        "$ref": "#/components/schemas/iso_date"
+                       }
+                      },
+                      "required": [
+                       "deleted"
+                      ]
+                     }
+                    }
+                   }
+                  ]
+                 },
+                 "from": {
+                  "$ref": "#/components/schemas/member_id"
+                 },
+                 "type": {
+                  "type": "string",
+                  "enum": [
+                   "message"
+                  ]
+                 }
+                },
+                "required": [
+                 "id",
+                 "timestamp",
+                 "_links",
+                 "from",
+                 "type"
+                ]
                }
               ]
              }
@@ -37715,9 +40142,6 @@
                "pstn": {
                 "$ref": "#/components/schemas/user_channel"
                },
-               "sms": {
-                "$ref": "#/components/schemas/user_channel"
-               },
                "sip": {
                 "$ref": "#/components/schemas/user_channel"
                },
@@ -37726,6 +40150,21 @@
                },
                "websocket": {
                 "$ref": "#/components/schemas/user_channel"
+               },
+               "sms": {
+                "$ref": "#/components/schemas/user_channel_number"
+               },
+               "mms": {
+                "$ref": "#/components/schemas/user_channel_number"
+               },
+               "whatsapp": {
+                "$ref": "#/components/schemas/user_channel_number"
+               },
+               "viber": {
+                "$ref": "#/components/schemas/user_channel_number"
+               },
+               "messenger": {
+                "$ref": "#/components/schemas/user_channel_id"
                }
               }
              },
@@ -38470,6 +40909,9 @@
                     "type": "integer",
                     "minimum": 1,
                     "maximum": 32
+                   },
+                   "transcription": {
+                    "$ref": "#/components/schemas/transcription"
                    },
                    "recording_id": {
                     "type": "string"
@@ -39613,10 +42055,10 @@
                    "channel": {
                     "oneOf": [
                      {
-                      "$ref": "#/components/schemas/channel_lite"
+                      "$ref": "#/components/schemas/member_channel_lite"
                      },
                      {
-                      "$ref": "#/components/schemas/channel"
+                      "$ref": "#/components/schemas/member_channel"
                      }
                     ]
                    },
@@ -39642,10 +42084,10 @@
                      "channel": {
                       "oneOf": [
                        {
-                        "$ref": "#/components/schemas/channel_lite"
+                        "$ref": "#/components/schemas/member_channel_lite"
                        },
                        {
-                        "$ref": "#/components/schemas/channel"
+                        "$ref": "#/components/schemas/member_channel"
                        }
                       ]
                      },
@@ -39782,10 +42224,10 @@
                    "channel": {
                     "oneOf": [
                      {
-                      "$ref": "#/components/schemas/channel_lite"
+                      "$ref": "#/components/schemas/member_channel_lite"
                      },
                      {
-                      "$ref": "#/components/schemas/channel"
+                      "$ref": "#/components/schemas/member_channel"
                      }
                     ]
                    },
@@ -39889,10 +42331,10 @@
                    "channel": {
                     "oneOf": [
                      {
-                      "$ref": "#/components/schemas/channel_lite"
+                      "$ref": "#/components/schemas/member_channel_lite"
                      },
                      {
-                      "$ref": "#/components/schemas/channel"
+                      "$ref": "#/components/schemas/member_channel"
                      }
                     ]
                    }
@@ -41266,6 +43708,177 @@
               ]
              },
              {
+              "oneOf": [
+               {
+                "type": "object",
+                "properties": {
+                 "to": {
+                  "$ref": "#/components/schemas/member_id"
+                 },
+                 "id": {
+                  "$ref": "#/components/schemas/event_id"
+                 },
+                 "timestamp": {
+                  "$ref": "#/components/schemas/iso_date"
+                 },
+                 "state": {
+                  "$ref": "#/components/schemas/event_state"
+                 },
+                 "_links": {
+                  "$ref": "#/components/schemas/_links"
+                 },
+                 "body": {
+                  "oneOf": [
+                   {
+                    "type": "object",
+                    "properties": {
+                     "request_id": {
+                      "type": "string"
+                     },
+                     "recording_id": {
+                      "type": "string"
+                     },
+                     "transcription_url": {
+                      "$ref": "#/components/schemas/transcription_url"
+                     },
+                     "error": {
+                      "$ref": "#/components/schemas/audio_error"
+                     },
+                     "channel": {
+                      "oneOf": [
+                       {
+                        "$ref": "#/components/schemas/channel_lite"
+                       },
+                       {
+                        "$ref": "#/components/schemas/channel"
+                       }
+                      ]
+                     }
+                    },
+                    "required": [
+                     "request_id",
+                     "recording_id",
+                     "channel"
+                    ]
+                   },
+                   {
+                    "type": "object",
+                    "properties": {
+                     "timestamp": {
+                      "type": "object",
+                      "properties": {
+                       "deleted": {
+                        "$ref": "#/components/schemas/iso_date"
+                       }
+                      },
+                      "required": [
+                       "deleted"
+                      ]
+                     }
+                    }
+                   }
+                  ]
+                 },
+                 "type": {
+                  "type": "string",
+                  "enum": [
+                   "audio:transcribe:done"
+                  ]
+                 },
+                 "from": {
+                  "$ref": "#/components/schemas/nullable_member_id"
+                 },
+                 "_embedded": {
+                  "$ref": "#/components/schemas/event_embedded"
+                 }
+                },
+                "required": [
+                 "id",
+                 "timestamp",
+                 "_links",
+                 "type",
+                 "from"
+                ]
+               },
+               {
+                "type": "object",
+                "properties": {
+                 "to": {
+                  "$ref": "#/components/schemas/member_id"
+                 },
+                 "id": {
+                  "$ref": "#/components/schemas/event_id"
+                 },
+                 "timestamp": {
+                  "$ref": "#/components/schemas/iso_date"
+                 },
+                 "state": {
+                  "$ref": "#/components/schemas/event_state"
+                 },
+                 "_embedded": {
+                  "$ref": "#/components/schemas/event_embedded"
+                 },
+                 "_links": {
+                  "$ref": "#/components/schemas/_links"
+                 },
+                 "body": {
+                  "oneOf": [
+                   {
+                    "type": "object",
+                    "properties": {
+                     "request_id": {
+                      "type": "string"
+                     },
+                     "recording_id": {
+                      "type": "string"
+                     },
+                     "transcription_url": {
+                      "$ref": "#/components/schemas/transcription_url"
+                     },
+                     "error": {
+                      "$ref": "#/components/schemas/audio_error"
+                     }
+                    },
+                    "required": [
+                     "request_id",
+                     "recording_id"
+                    ]
+                   },
+                   {
+                    "type": "object",
+                    "properties": {
+                     "timestamp": {
+                      "type": "object",
+                      "properties": {
+                       "deleted": {
+                        "$ref": "#/components/schemas/iso_date"
+                       }
+                      },
+                      "required": [
+                       "deleted"
+                      ]
+                     }
+                    }
+                   }
+                  ]
+                 },
+                 "type": {
+                  "type": "string",
+                  "enum": [
+                   "audio:transcribe:done"
+                  ]
+                 }
+                },
+                "required": [
+                 "id",
+                 "timestamp",
+                 "_links",
+                 "type"
+                ]
+               }
+              ]
+             },
+             {
               "type": "object",
               "properties": {
                "to": {
@@ -42433,6 +45046,110 @@
                "from",
                "type"
               ]
+             },
+             {
+              "type": "object",
+              "properties": {
+               "to": {
+                "$ref": "#/components/schemas/member_id"
+               },
+               "id": {
+                "$ref": "#/components/schemas/event_id"
+               },
+               "timestamp": {
+                "$ref": "#/components/schemas/iso_date"
+               },
+               "state": {
+                "$ref": "#/components/schemas/event_state"
+               },
+               "_embedded": {
+                "$ref": "#/components/schemas/event_embedded"
+               },
+               "_links": {
+                "$ref": "#/components/schemas/_links"
+               },
+               "body": {
+                "oneOf": [
+                 {
+                  "oneOf": [
+                   {
+                    "type": "object",
+                    "properties": {
+                     "message_type": {
+                      "type": "string",
+                      "enum": [
+                       "vcard"
+                      ]
+                     },
+                     "vcard": {
+                      "$ref": "#/components/schemas/message_vcard"
+                     }
+                    },
+                    "required": [
+                     "message_type",
+                     "vcard"
+                    ]
+                   },
+                   {
+                    "type": "object",
+                    "properties": {
+                     "vcard": {
+                      "$ref": "#/components/schemas/message_vcard"
+                     },
+                     "message_type": {
+                      "type": "string",
+                      "enum": [
+                       "text",
+                       "image",
+                       "video",
+                       "audio",
+                       "file",
+                       "custom",
+                       "template"
+                      ]
+                     }
+                    },
+                    "required": [
+                     "message_type"
+                    ]
+                   }
+                  ]
+                 },
+                 {
+                  "type": "object",
+                  "properties": {
+                   "timestamp": {
+                    "type": "object",
+                    "properties": {
+                     "deleted": {
+                      "$ref": "#/components/schemas/iso_date"
+                     }
+                    },
+                    "required": [
+                     "deleted"
+                    ]
+                   }
+                  }
+                 }
+                ]
+               },
+               "from": {
+                "$ref": "#/components/schemas/member_id"
+               },
+               "type": {
+                "type": "string",
+                "enum": [
+                 "message"
+                ]
+               }
+              },
+              "required": [
+               "id",
+               "timestamp",
+               "_links",
+               "from",
+               "type"
+              ]
              }
             ]
            }
@@ -43578,6 +46295,9 @@
              "type": "integer",
              "minimum": 1,
              "maximum": 32
+            },
+            "transcription": {
+             "$ref": "#/components/schemas/transcription"
             }
            }
           }
@@ -44230,6 +46950,71 @@
          "required": [
           "type"
          ]
+        },
+        {
+         "type": "object",
+         "properties": {
+          "type": {
+           "type": "string",
+           "enum": [
+            "message"
+           ]
+          },
+          "to": {
+           "$ref": "#/components/schemas/member_id"
+          },
+          "from": {
+           "$ref": "#/components/schemas/nullable_member_id"
+          },
+          "body": {
+           "oneOf": [
+            {
+             "type": "object",
+             "properties": {
+              "message_type": {
+               "type": "string",
+               "enum": [
+                "vcard"
+               ]
+              },
+              "vcard": {
+               "$ref": "#/components/schemas/message_vcard"
+              }
+             },
+             "required": [
+              "message_type",
+              "vcard"
+             ]
+            },
+            {
+             "type": "object",
+             "properties": {
+              "vcard": {
+               "$ref": "#/components/schemas/message_vcard"
+              },
+              "message_type": {
+               "type": "string",
+               "enum": [
+                "text",
+                "image",
+                "video",
+                "audio",
+                "file",
+                "custom",
+                "template"
+               ]
+              }
+             },
+             "required": [
+              "message_type"
+             ]
+            }
+           ]
+          }
+         },
+         "required": [
+          "type"
+         ]
         }
        ]
       }
@@ -44249,6 +47034,9 @@
         "callback": {
          "type": "string",
          "format": "uri"
+        },
+        "batch_events": {
+         "type": "boolean"
         },
         "originating_session": {
          "$ref": "#/components/schemas/session_id"
@@ -44295,6 +47083,9 @@
         "token": {
          "$ref": "#/components/schemas/string_500"
         },
+        "batch_events": {
+         "type": "boolean"
+        },
         "event_mask": {
          "$ref": "#/components/schemas/string_200"
         },
@@ -44334,9 +47125,6 @@
           "pstn": {
            "$ref": "#/components/schemas/user_channel"
           },
-          "sms": {
-           "$ref": "#/components/schemas/user_channel"
-          },
           "sip": {
            "$ref": "#/components/schemas/user_channel"
           },
@@ -44345,6 +47133,21 @@
           },
           "websocket": {
            "$ref": "#/components/schemas/user_channel"
+          },
+          "sms": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "mms": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "whatsapp": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "viber": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "messenger": {
+           "$ref": "#/components/schemas/user_channel_id"
           }
          }
         },
@@ -44378,9 +47181,6 @@
           "pstn": {
            "$ref": "#/components/schemas/user_channel"
           },
-          "sms": {
-           "$ref": "#/components/schemas/user_channel"
-          },
           "sip": {
            "$ref": "#/components/schemas/user_channel"
           },
@@ -44389,6 +47189,21 @@
           },
           "websocket": {
            "$ref": "#/components/schemas/user_channel"
+          },
+          "sms": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "mms": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "whatsapp": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "viber": {
+           "$ref": "#/components/schemas/user_channel_number"
+          },
+          "messenger": {
+           "$ref": "#/components/schemas/user_channel_id"
           }
          }
         },
@@ -44460,6 +47275,9 @@
           "wav",
           "vorbis"
          ]
+        },
+        "transcription": {
+         "$ref": "#/components/schemas/transcription"
         }
        }
       }
@@ -44504,6 +47322,9 @@
           "wav",
           "vorbis"
          ]
+        },
+        "transcription": {
+         "$ref": "#/components/schemas/transcription"
         }
        }
       }
@@ -44705,7 +47526,8 @@
          }
         },
         "end_on_silence_timeout": {
-         "type": "integer"
+         "type": "number",
+         "format": "float"
         },
         "conversation_uuid": {
          "$ref": "#/components/schemas/conversation_id"
@@ -44714,7 +47536,7 @@
          "type": "number",
          "format": "float",
          "minimum": 1,
-         "maximum": 10
+         "maximum": 60
         },
         "max_duration": {
          "type": "integer",
@@ -44749,7 +47571,8 @@
          }
         },
         "end_on_silence_timeout": {
-         "type": "integer"
+         "type": "number",
+         "format": "float"
         },
         "conversation_id": {
          "$ref": "#/components/schemas/conversation_id_v03"
@@ -44758,7 +47581,7 @@
          "type": "number",
          "format": "float",
          "minimum": 1,
-         "maximum": 10
+         "maximum": 60
         },
         "max_duration": {
          "type": "integer",
@@ -44981,23 +47804,27 @@
         "body": {
          "type": "object",
          "properties": {
-          "sdp": {
-           "type": "string"
+          "offer": {
+           "$ref": "#/components/schemas/offer"
           },
           "max_length": {
            "type": "integer"
           }
          },
          "required": [
-          "sdp"
+          "offer"
          ]
         },
         "from": {
          "$ref": "#/components/schemas/member_id"
+        },
+        "originating_session": {
+         "$ref": "#/components/schemas/session_id"
         }
        },
        "required": [
-        "from"
+        "from",
+        "originating_session"
        ]
       }
      }
@@ -45013,23 +47840,30 @@
         "body": {
          "type": "object",
          "properties": {
-          "sdp": {
-           "$ref": "#/components/schemas/sdp"
+          "offer": {
+           "$ref": "#/components/schemas/offer"
           },
           "max_length": {
            "type": "integer"
+          },
+          "sync": {
+           "type": "boolean"
           }
          },
          "required": [
-          "sdp"
+          "offer"
          ]
         },
         "from": {
          "$ref": "#/components/schemas/member_id_v03"
+        },
+        "originating_session": {
+         "$ref": "#/components/schemas/session_id"
         }
        },
        "required": [
-        "from"
+        "from",
+        "originating_session"
        ]
       }
      }
@@ -45206,6 +48040,9 @@
        "properties": {
         "channel": {
          "$ref": "#/components/schemas/channel_v03"
+        },
+        "properties": {
+         "$ref": "#/components/schemas/properties_knocking"
         }
        },
        "required": [
